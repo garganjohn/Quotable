@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">QuoteMe</string>
+
+    <string-array name="view_pager_choices">
+        <item>Motivational Quote</item>
+        <item>Demotivational Quote</item>
+        <item>Kanye Quote</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
