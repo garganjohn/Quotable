@@ -3,10 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/fragment_name"
-        android:layout_width="match_parent"
-        android:layout_height="70dp" />
+
 
 
 </android.support.constraint.ConstraintLayout>
