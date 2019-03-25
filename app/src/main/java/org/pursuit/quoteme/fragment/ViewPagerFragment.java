@@ -1,9 +1,11 @@
 package org.pursuit.quoteme.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,8 @@ public class ViewPagerFragment extends Fragment {
     public static final String NAME_KEY = "name";
     private String name;
     private TextView nameTV;
+    private ConstraintLayout viewPagerContainer;
+    private FragmentListener fragmentListener;
 
     public static ViewPagerFragment getInstance(String name) {
         Bundle bundle = new Bundle();
@@ -31,6 +35,21 @@ public class ViewPagerFragment extends Fragment {
     public ViewPagerFragment() {
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof FragmentListener) {
+            fragmentListener = (FragmentListener) context;
+        }else{
+            throw new RuntimeException(context.toString() + " implement your listener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        fragmentListener = null;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +70,14 @@ public class ViewPagerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nameTV = view.findViewById(R.id.fragment_name);
+        viewPagerContainer = view.findViewById(R.id.viewpager_fragment_container);
 
         nameTV.setText(name);
+        viewPagerContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentListener.toDisplayFragment(name);
+            }
+        });
     }
 }

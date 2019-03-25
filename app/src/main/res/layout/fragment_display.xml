@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.DisplayFragment">
+    tools:context=".fragment.DisplayFragment"
+    android:background="@color/colorPrimaryDark">
 
     <TextView
         android:id="@+id/display_frag_name"
