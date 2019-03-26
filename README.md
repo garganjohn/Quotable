@@ -1,3 +1,3 @@
-# Quote-Me
+# Quotable
 
-Trello https://trello.com/b/eZfDh2ES/quote-me
+Trello https://trello.com/b/eZfDh2ES/quotable
