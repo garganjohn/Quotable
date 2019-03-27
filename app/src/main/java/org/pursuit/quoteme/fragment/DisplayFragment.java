@@ -5,19 +5,30 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.pursuit.quoteme.R;
+import org.pursuit.quoteme.network.Ye;
+import org.pursuit.quoteme.network.YeService;
+import org.pursuit.quoteme.network.YeSingleton;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DisplayFragment extends Fragment {
+    public static final String TAG = "Display Fragment";
     public static final String NAME_KEY = "display name";
     private String name;
+    private String quote;
     private TextView nameTV;
 
     public static DisplayFragment getInstance(String name) {
@@ -36,7 +47,32 @@ public class DisplayFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             name = getArguments().getString(NAME_KEY);
+            switch (name) {
+                case "Kanye Quotes":
+                    getKanyeQuote();
+                    break;
+            }
         }
+    }
+
+    private void getKanyeQuote() {
+        Retrofit retrofit = YeSingleton.getInstance();
+        final String[] quoteAPI = {""};
+        Call<Ye> call = retrofit.create(YeService.class).getYeAPI();
+        Log.d(TAG, "getKanyeQuote: ;" + call.request());
+        call.enqueue(new Callback<Ye>() {
+            @Override
+            public void onResponse(Call<Ye> call, Response<Ye> response) {
+                quoteAPI[0] = response.body().getQuote();
+                nameTV.setText(quoteAPI[0]);
+            }
+
+            @Override
+            public void onFailure(Call<Ye> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
     }
 
     @Override
@@ -50,7 +86,7 @@ public class DisplayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nameTV = view.findViewById(R.id.display_frag_name);
-        nameTV.setText(name);
+
 
     }
 }
