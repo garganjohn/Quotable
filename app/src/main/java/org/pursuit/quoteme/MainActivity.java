@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 
 import org.pursuit.quoteme.fragment.DisplayFragment;
 import org.pursuit.quoteme.fragment.FragmentListener;
@@ -22,6 +23,7 @@ public class MainActivity extends FragmentActivity implements FragmentListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ViewPager viewPager = findViewById(R.id.main_act_viewpager);
+        viewPager.setPageMargin(addPadding(10));
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), getFragmentsForViewPager()));
     }
 
@@ -41,5 +43,9 @@ public class MainActivity extends FragmentActivity implements FragmentListener {
                 .replace(R.id.main_act_container, displayFragment)
                 .addToBackStack("Display Fragment")
                 .commit();
+    }
+    public int addPadding(int dp){
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 }
