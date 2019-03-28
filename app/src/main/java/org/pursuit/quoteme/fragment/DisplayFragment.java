@@ -12,11 +12,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.pursuit.quoteme.R;
-import org.pursuit.quoteme.network.MotivationQuoteService;
-import org.pursuit.quoteme.network.MotivationalQuote;
+import org.pursuit.quoteme.network.util.MotivationQuoteService;
+import org.pursuit.quoteme.network.model.MotivationalQuote;
 import org.pursuit.quoteme.network.MotivationalQuoteSingleton;
-import org.pursuit.quoteme.network.Ye;
-import org.pursuit.quoteme.network.YeService;
+import org.pursuit.quoteme.network.model.Ye;
+import org.pursuit.quoteme.network.util.YeService;
 import org.pursuit.quoteme.network.YeSingleton;
 
 import java.util.List;
@@ -53,10 +53,10 @@ public class DisplayFragment extends Fragment {
             name = getArguments().getString(NAME_KEY);
             switch (name) {
                 case "Motivational Quotes":
-                    getMotivationalQuote();
+
                     break;
                 case "Kanye Quotes":
-                    getKanyeQuote();
+
                     break;
             }
         }
@@ -78,41 +78,5 @@ public class DisplayFragment extends Fragment {
 
     }
 
-    private void getMotivationalQuote() {
-        Retrofit retrofit = MotivationalQuoteSingleton.getInstance();
-        final String[] quoteAPI = {""};
-        Call<List<MotivationalQuote>> call = retrofit.create(MotivationQuoteService.class).getMotivationAPI();
-        call.enqueue(new Callback<List<MotivationalQuote>>() {
-            @Override
-            public void onResponse(Call<List<MotivationalQuote>> call, Response<List<MotivationalQuote>> response) {
-                quoteAPI[0] = response.body().get(0).getContent();
-                nameTV.setText(quoteAPI[0]);
-            }
 
-            @Override
-            public void onFailure(Call<List<MotivationalQuote>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
-
-
-    private void getKanyeQuote() {
-        Retrofit retrofit = YeSingleton.getInstance();
-        final String[] quoteAPI = {""};
-        Call<Ye> call = retrofit.create(YeService.class).getYeAPI();
-        Log.d(TAG, "getKanyeQuote: ;" + call.request());
-        call.enqueue(new Callback<Ye>() {
-            @Override
-            public void onResponse(Call<Ye> call, Response<Ye> response) {
-                quoteAPI[0] = response.body().getQuote();
-                nameTV.setText(quoteAPI[0]);
-            }
-
-            @Override
-            public void onFailure(Call<Ye> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
 }

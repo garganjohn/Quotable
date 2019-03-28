@@ -58,4 +58,7 @@ public class SplashFrag extends Fragment {
         super.onDetach();
         fragmentListener = null;
     }
+    public void getQuotesAndName(){
+
+    }
 }

@@ -1,4 +1,4 @@
-package org.pursuit.quoteme.network;
+package org.pursuit.quoteme.network.model;
 
 public class MotivationalQuote {
     private String title;

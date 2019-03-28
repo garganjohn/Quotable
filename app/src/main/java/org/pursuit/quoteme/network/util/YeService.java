@@ -1,4 +1,6 @@
-package org.pursuit.quoteme.network;
+package org.pursuit.quoteme.network.util;
+
+import org.pursuit.quoteme.network.model.Ye;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

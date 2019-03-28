@@ -1,4 +1,6 @@
-package org.pursuit.quoteme.network;
+package org.pursuit.quoteme.network.util;
+
+import org.pursuit.quoteme.network.model.MotivationalQuote;
 
 import java.util.List;
 

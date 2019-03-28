@@ -24,6 +24,7 @@ public class MainActivity extends FragmentActivity implements FragmentListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         splashScreen();
+
         ViewPager viewPager = findViewById(R.id.main_act_viewpager);
         viewPager.setPageMargin(addPadding(10));
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), getFragmentsForViewPager()));
