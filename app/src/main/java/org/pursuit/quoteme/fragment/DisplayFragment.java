@@ -12,9 +12,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.pursuit.quoteme.R;
+import org.pursuit.quoteme.network.MotivationQuoteService;
+import org.pursuit.quoteme.network.MotivationalQuote;
+import org.pursuit.quoteme.network.MotivationalQuoteSingleton;
 import org.pursuit.quoteme.network.Ye;
 import org.pursuit.quoteme.network.YeService;
 import org.pursuit.quoteme.network.YeSingleton;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +33,6 @@ public class DisplayFragment extends Fragment {
     public static final String TAG = "Display Fragment";
     public static final String NAME_KEY = "display name";
     private String name;
-    private String quote;
     private TextView nameTV;
 
     public static DisplayFragment getInstance(String name) {
@@ -48,12 +52,50 @@ public class DisplayFragment extends Fragment {
         if (getArguments() != null) {
             name = getArguments().getString(NAME_KEY);
             switch (name) {
+                case "Motivational Quotes":
+                    getMotivationalQuote();
+                    break;
                 case "Kanye Quotes":
                     getKanyeQuote();
                     break;
             }
         }
     }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_display, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        nameTV = view.findViewById(R.id.display_frag_name);
+
+
+    }
+
+    private void getMotivationalQuote() {
+        Retrofit retrofit = MotivationalQuoteSingleton.getInstance();
+        final String[] quoteAPI = {""};
+        Call<List<MotivationalQuote>> call = retrofit.create(MotivationQuoteService.class).getMotivationAPI();
+        call.enqueue(new Callback<List<MotivationalQuote>>() {
+            @Override
+            public void onResponse(Call<List<MotivationalQuote>> call, Response<List<MotivationalQuote>> response) {
+                quoteAPI[0] = response.body().get(0).getContent();
+                nameTV.setText(quoteAPI[0]);
+            }
+
+            @Override
+            public void onFailure(Call<List<MotivationalQuote>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
 
     private void getKanyeQuote() {
         Retrofit retrofit = YeSingleton.getInstance();
@@ -72,21 +114,5 @@ public class DisplayFragment extends Fragment {
                 t.printStackTrace();
             }
         });
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_display, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        nameTV = view.findViewById(R.id.display_frag_name);
-
-
     }
 }
