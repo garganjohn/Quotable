@@ -8,6 +8,7 @@ import android.util.DisplayMetrics;
 
 import org.pursuit.quoteme.fragment.DisplayFragment;
 import org.pursuit.quoteme.fragment.FragmentListener;
+import org.pursuit.quoteme.fragment.SplashFrag;
 import org.pursuit.quoteme.fragment.ViewPagerFragment;
 import org.pursuit.quoteme.viewpager.controller.ViewPagerAdapter;
 
@@ -22,17 +23,10 @@ public class MainActivity extends FragmentActivity implements FragmentListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        splashScreen();
         ViewPager viewPager = findViewById(R.id.main_act_viewpager);
         viewPager.setPageMargin(addPadding(10));
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), getFragmentsForViewPager()));
-    }
-
-    public List<Fragment> getFragmentsForViewPager() {
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(ViewPagerFragment.getInstance("Motivational Quotes"));
-        fragments.add(ViewPagerFragment.getInstance("Demotivational Quotes"));
-        fragments.add(ViewPagerFragment.getInstance("Kanye Quotes"));
-        return fragments;
     }
 
     @Override
@@ -44,8 +38,33 @@ public class MainActivity extends FragmentActivity implements FragmentListener {
                 .addToBackStack("Display Fragment")
                 .commit();
     }
-    public int addPadding(int dp){
+
+    public List<Fragment> getFragmentsForViewPager() {
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(ViewPagerFragment.getInstance("Motivational Quotes"));
+        fragments.add(ViewPagerFragment.getInstance("Demotivational Quotes"));
+        fragments.add(ViewPagerFragment.getInstance("Kanye Quotes"));
+        return fragments;
+    }
+
+    public int addPadding(int dp) {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
+
+    public void splashScreen() {
+        SplashFrag splashFrag = new SplashFrag();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_act_container, splashFrag)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    public void closeFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(fragment)
+                .commit();
     }
 }
