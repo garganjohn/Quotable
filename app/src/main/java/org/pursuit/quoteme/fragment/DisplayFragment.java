@@ -33,6 +33,8 @@ public class DisplayFragment extends Fragment {
     public static final String TAG = "Display Fragment";
     public static final String NAME_KEY = "display name";
     private String name;
+
+    private TextView author;
     private TextView quote;
     private TextView title;
 
@@ -87,6 +89,7 @@ public class DisplayFragment extends Fragment {
         }
         quote = view.findViewById(R.id.display_frag_quote);
         title = view.findViewById(R.id.display_frag_title);
+        author = view.findViewById(R.id.display_frag_author);
     }
 
     private void getMotivationalQuote() {
@@ -98,6 +101,7 @@ public class DisplayFragment extends Fragment {
             public void onResponse(Call<List<MotivationalQuote>> call, Response<List<MotivationalQuote>> response) {
                 quoteAPI[0] = response.body().get(0).getContent();
                 title.setText("Motivational");
+                author.setText(response.body().get(0).getTitle());
                 quote.setText(quoteAPI[0]);
             }
 
