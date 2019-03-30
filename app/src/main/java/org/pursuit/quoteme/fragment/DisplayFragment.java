@@ -105,7 +105,7 @@ public class DisplayFragment extends Fragment {
                 quoteAPI[0] = response.body().get(0).getContent();
                 title.setText("Motivational");
                 String titleResponse = response.body().get(0).getTitle();
-                String fixedStringResponse = tempFixStringResponse(quoteAPI[0]);
+                String fixedStringResponse = fixStringResponse(quoteAPI[0]);
                 author.setText(titleResponse);
                 quote.setText(fixedStringResponse);
             }
@@ -149,29 +149,12 @@ public class DisplayFragment extends Fragment {
     }
 
     private String fixStringResponse(String str) {
-        String holder = "";
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == '<' && str.charAt(i + 1) == 'p' && str.charAt(i + 2) == '>') {
-                holder = holder + str.substring(i + 3);
-            } else if (str.charAt(i) == '&' && str.charAt(i + 1) == '#' && str.charAt(i + 2) == '8'
-                    && str.charAt(i + 3) == '2' && str.charAt(i + 4) == '1' && str.charAt(i + 5) == '7') {
-                holder = holder + str.substring(i + 6);
-            }
-        }
-        return holder.substring(0, holder.length() - 5);
+        return str.replaceAll("<p>","")
+                .replaceAll("</p>","")
+                .replaceAll("&#8217;","'")
+                .replaceAll("<br />", "")
+                .replaceAll("<strong>","")
+                .replaceAll("<strong>","");
     }
 
-
-    private String tempFixStringResponse(String str) {
-        String holder = "";
-        if (str.contains("&#")) {
-            getMotivationalQuote();
-        }
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == '<' && str.charAt(i + 1) == 'p' && str.charAt(i + 2) == '>') {
-                holder = holder + str.substring(i + 3);
-            }
-        }
-        return holder.substring(0, holder.length() - 5);
-    }
 }
