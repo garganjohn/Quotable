@@ -19,8 +19,6 @@ import org.pursuit.quoteme.R;
  */
 public class SplashFrag extends Fragment {
     private FragmentListener fragmentListener;
-    private ConstraintLayout splashContainer;
-
 
     @Override
     public void onAttach(Context context) {
@@ -57,7 +55,7 @@ public class SplashFrag extends Fragment {
             public void run() {
                 fragmentListener.closeFragment(frag);
             }
-        }, 2000 );
+        }, 2500 );
     }
 
     @Override
