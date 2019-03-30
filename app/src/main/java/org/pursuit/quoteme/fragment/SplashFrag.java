@@ -3,7 +3,10 @@ package org.pursuit.quoteme.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +19,8 @@ import org.pursuit.quoteme.R;
  */
 public class SplashFrag extends Fragment {
     private FragmentListener fragmentListener;
+    private ConstraintLayout splashContainer;
 
-
-    public SplashFrag() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -48,14 +48,22 @@ public class SplashFrag extends Fragment {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        final SplashFrag frag = this;
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fragmentListener.closeFragment(frag);
+            }
+        }, 2000 );
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        fragmentListener.closeFragment(this);
+
     }
 
     @Override
