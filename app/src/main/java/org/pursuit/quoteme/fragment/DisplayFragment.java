@@ -105,7 +105,7 @@ public class DisplayFragment extends Fragment {
                 quoteAPI[0] = response.body().get(0).getContent();
                 title.setText("Motivational");
                 author.setText(response.body().get(0).getTitle());
-                quote.setText(quoteAPI[0]);
+                quote.setText(fixStringResponse(quoteAPI[0]));
             }
 
             @Override
@@ -148,15 +148,12 @@ public class DisplayFragment extends Fragment {
         String holder = "";
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == '<' && str.charAt(i + 1) == 'p' && str.charAt(i + 2) == '>') {
-                holder = holder + str.substring(i + 2);
-                i = i + 3;
-                continue;
-            } else if (str.charAt(i) == '<' && str.charAt(i + 1) == '/' && str.charAt(i + 2) == 'p' && str.charAt(i + 3) == '>') {
-                holder = holder + "";
-                break;
+                holder = holder + str.substring(i + 3);
+            }else if(str.charAt(i) == '&' && str.charAt(i + 1) == '#' && str.charAt(i + 2) == '8'
+                    && str.charAt(i + 3) == '2' && str.charAt(i + 4) == '1' && str.charAt(i + 5) == '7'){
+                holder = holder + str.substring(i + 6);
             }
-
         }
-        return holder;
+        return holder.substring(0, holder.length() - 4);
     }
 }
