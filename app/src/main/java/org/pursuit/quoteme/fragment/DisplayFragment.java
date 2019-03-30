@@ -4,6 +4,7 @@ package org.pursuit.quoteme.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ public class DisplayFragment extends Fragment {
     public static final String NAME_KEY = "display name";
     private String name;
 
+    private ConstraintLayout display_frag_container;
     private TextView author;
     private TextView quote;
     private TextView title;
@@ -79,6 +81,7 @@ public class DisplayFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         if (getArguments() != null && getArguments().getString(NAME_KEY).equals("Demotivational Quotes")) {
             quote = view.findViewById(R.id.display_frag_quote);
             title = view.findViewById(R.id.display_frag_title);
@@ -139,14 +142,14 @@ public class DisplayFragment extends Fragment {
 
     }
 
-    private String fixStringResponse(String str){
+    private String fixStringResponse(String str) {
         String holder = "";
         for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == '<' && str.charAt(i+1) == 'p' && str.charAt(i+2) == '>'){
-                holder = holder + str.substring(i+2);
-                i = i+3;
+            if (str.charAt(i) == '<' && str.charAt(i + 1) == 'p' && str.charAt(i + 2) == '>') {
+                holder = holder + str.substring(i + 2);
+                i = i + 3;
                 continue;
-            }else if(str.charAt(i) == '<' && str.charAt(i+1) == '/' && str.charAt(i+2) == 'p' && str.charAt(i + 3) == '>'){
+            } else if (str.charAt(i) == '<' && str.charAt(i + 1) == '/' && str.charAt(i + 2) == 'p' && str.charAt(i + 3) == '>') {
                 holder = holder + "";
                 break;
             }
