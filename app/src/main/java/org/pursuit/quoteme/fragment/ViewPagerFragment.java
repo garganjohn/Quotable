@@ -19,7 +19,9 @@ import org.pursuit.quoteme.R;
  */
 public class ViewPagerFragment extends Fragment {
     public static final String NAME_KEY = "name";
+    public static final String QUOTE_KEY = "name";
     private String name;
+    private String quote;
     private TextView nameTV;
     private ConstraintLayout viewPagerContainer;
     private FragmentListener fragmentListener;
@@ -56,6 +58,7 @@ public class ViewPagerFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             name = getArguments().getString(NAME_KEY);
+            quote = getArguments().getString(QUOTE_KEY);
         }
     }
 

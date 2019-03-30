@@ -10,6 +10,7 @@ import org.pursuit.quoteme.fragment.DisplayFragment;
 import org.pursuit.quoteme.fragment.FragmentListener;
 import org.pursuit.quoteme.fragment.SplashFrag;
 import org.pursuit.quoteme.fragment.ViewPagerFragment;
+import org.pursuit.quoteme.network.QuotesRepo;
 import org.pursuit.quoteme.viewpager.controller.ViewPagerAdapter;
 
 import java.util.ArrayList;
@@ -17,12 +18,16 @@ import java.util.List;
 
 public class MainActivity extends FragmentActivity implements FragmentListener {
     public static final String TAG = "Main Activity";
+    private List<Fragment> viewPagerFragmentList;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //TODO fix the fragments not receieving the quote from the network call
+        //TODO RxJava merge within splash screen save to shardeprefs and then move on when onSuccess
+       // viewPagerFragmentList = new ArrayList<>();
         splashScreen();
 
         ViewPager viewPager = findViewById(R.id.main_act_viewpager);
@@ -41,6 +46,9 @@ public class MainActivity extends FragmentActivity implements FragmentListener {
     }
 
     public List<Fragment> getFragmentsForViewPager() {
+        QuotesRepo repo = new QuotesRepo();
+        String motivate = repo.getMotivationalQuote();
+        String yeQuote = repo.getKanyeQuote();
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(ViewPagerFragment.getInstance("Motivational Quotes"));
         fragments.add(ViewPagerFragment.getInstance("Demotivational Quotes"));
@@ -63,9 +71,15 @@ public class MainActivity extends FragmentActivity implements FragmentListener {
     }
 
     public void closeFragment(Fragment fragment) {
+        viewPagerFragmentList = getFragmentsForViewPager();
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(fragment)
                 .commit();
+    }
+
+    public void getQuotesAndName() {
+
+
     }
 }

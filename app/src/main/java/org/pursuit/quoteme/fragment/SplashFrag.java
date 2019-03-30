@@ -50,15 +50,18 @@ public class SplashFrag extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        fragmentListener.closeFragment(this);
+        try {
+            Thread.sleep(5000);
+            fragmentListener.closeFragment(this);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         fragmentListener = null;
-    }
-    public void getQuotesAndName(){
-
     }
 }

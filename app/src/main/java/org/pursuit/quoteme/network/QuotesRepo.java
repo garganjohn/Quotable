@@ -16,17 +16,16 @@ import retrofit2.Retrofit;
 
 public class QuotesRepo {
     //TODO MAKE YA QUOTES WORK
-    private String getMotivationalQuote() {
+    public String getMotivationalQuote() {
         Retrofit retrofit = MotivationalQuoteSingleton.getInstance();
         final String[] quoteAPI = {""};
         Call<List<MotivationalQuote>> call = retrofit.create(MotivationQuoteService.class).getMotivationAPI();
+
         call.enqueue(new Callback<List<MotivationalQuote>>() {
             @Override
             public void onResponse(Call<List<MotivationalQuote>> call, Response<List<MotivationalQuote>> response) {
                 quoteAPI[0] = response.body().get(0).getContent();
-
             }
-
             @Override
             public void onFailure(Call<List<MotivationalQuote>> call, Throwable t) {
                 t.printStackTrace();
@@ -36,7 +35,7 @@ public class QuotesRepo {
     }
 
 
-    private String getKanyeQuote() {
+    public String getKanyeQuote() {
         Retrofit retrofit = YeSingleton.getInstance();
         final String[] quoteAPI = {""};
         Call<Ye> call = retrofit.create(YeService.class).getYeAPI();
@@ -45,9 +44,7 @@ public class QuotesRepo {
             @Override
             public void onResponse(Call<Ye> call, Response<Ye> response) {
                 quoteAPI[0] = response.body().getQuote();
-
             }
-
             @Override
             public void onFailure(Call<Ye> call, Throwable t) {
                 t.printStackTrace();
