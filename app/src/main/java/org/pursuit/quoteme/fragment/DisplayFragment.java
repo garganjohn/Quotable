@@ -33,8 +33,8 @@ public class DisplayFragment extends Fragment {
     public static final String TAG = "Display Fragment";
     public static final String NAME_KEY = "display name";
     private String name;
-    private String quote;
-    private TextView nameTV;
+    private TextView quote;
+    private TextView title;
 
     public static DisplayFragment getInstance(String name) {
         Bundle bundle = new Bundle();
@@ -78,11 +78,14 @@ public class DisplayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (getArguments() != null && getArguments().getString(NAME_KEY).equals("Demotivational Quotes")) {
-            nameTV = view.findViewById(R.id.display_frag_name);
-            nameTV.setText("ur bad");
+            quote = view.findViewById(R.id.display_frag_quote);
+            title = view.findViewById(R.id.display_frag_title);
+
+            title.setText("Demotivational");
+            quote.setText("ur bad");
 
         }
-        nameTV = view.findViewById(R.id.display_frag_name);
+        title = view.findViewById(R.id.display_frag_title);
     }
 
     private void getMotivationalQuote() {
@@ -93,7 +96,7 @@ public class DisplayFragment extends Fragment {
             @Override
             public void onResponse(Call<List<MotivationalQuote>> call, Response<List<MotivationalQuote>> response) {
                 quoteAPI[0] = response.body().get(0).getContent();
-                nameTV.setText(quoteAPI[0]);
+                title.setText(quoteAPI[0]);
             }
 
             @Override
@@ -113,7 +116,7 @@ public class DisplayFragment extends Fragment {
             @Override
             public void onResponse(Call<Ye> call, Response<Ye> response) {
                 quoteAPI[0] = response.body().getQuote();
-                nameTV.setText(quoteAPI[0]);
+                title.setText(quoteAPI[0]);
             }
 
             @Override
@@ -125,7 +128,7 @@ public class DisplayFragment extends Fragment {
 
     private void getDemotivationalQuote() {
         String quote = "ur bad";
-        nameTV.setText(quote);
+        title.setText(quote);
 
     }
 }
