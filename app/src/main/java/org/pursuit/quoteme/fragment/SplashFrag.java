@@ -50,6 +50,11 @@ public class SplashFrag extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         fragmentListener.closeFragment(this);
     }
 

@@ -4,6 +4,7 @@ package org.pursuit.quoteme.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,7 +34,11 @@ public class DisplayFragment extends Fragment {
     public static final String TAG = "Display Fragment";
     public static final String NAME_KEY = "display name";
     private String name;
-    private TextView nameTV;
+
+    private ConstraintLayout display_frag_container;
+    private TextView author;
+    private TextView quote;
+    private TextView title;
 
     public static DisplayFragment getInstance(String name) {
         Bundle bundle = new Bundle();
@@ -55,6 +60,9 @@ public class DisplayFragment extends Fragment {
                 case "Motivational Quotes":
                     getMotivationalQuote();
                     break;
+//                case "Demotivational Quotes":
+//                    getDemotivationalQuote();
+//                    break;
                 case "Kanye Quotes":
                     getKanyeQuote();
                     break;
@@ -73,9 +81,18 @@ public class DisplayFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        nameTV = view.findViewById(R.id.display_frag_name);
 
+        if (getArguments() != null && getArguments().getString(NAME_KEY).equals("Demotivational Quotes")) {
+            quote = view.findViewById(R.id.display_frag_quote);
+            title = view.findViewById(R.id.display_frag_title);
 
+            title.setText("Demotivational");
+            quote.setText("ur bad");
+
+        }
+        quote = view.findViewById(R.id.display_frag_quote);
+        title = view.findViewById(R.id.display_frag_title);
+        author = view.findViewById(R.id.display_frag_author);
     }
 
     private void getMotivationalQuote() {
@@ -86,7 +103,9 @@ public class DisplayFragment extends Fragment {
             @Override
             public void onResponse(Call<List<MotivationalQuote>> call, Response<List<MotivationalQuote>> response) {
                 quoteAPI[0] = response.body().get(0).getContent();
-                nameTV.setText(quoteAPI[0]);
+                title.setText("Motivational");
+                author.setText(response.body().get(0).getTitle());
+                quote.setText(quoteAPI[0]);
             }
 
             @Override
@@ -98,6 +117,7 @@ public class DisplayFragment extends Fragment {
 
 
     private void getKanyeQuote() {
+        final String quotation = "\"";
         Retrofit retrofit = YeSingleton.getInstance();
         final String[] quoteAPI = {""};
         Call<Ye> call = retrofit.create(YeService.class).getYeAPI();
@@ -106,7 +126,9 @@ public class DisplayFragment extends Fragment {
             @Override
             public void onResponse(Call<Ye> call, Response<Ye> response) {
                 quoteAPI[0] = response.body().getQuote();
-                nameTV.setText(quoteAPI[0]);
+                title.setText("What would Kanye say:");
+                author.setText("Kanye");
+                quote.setText(quotation + quoteAPI[0] + quotation);
             }
 
             @Override
@@ -114,5 +136,27 @@ public class DisplayFragment extends Fragment {
                 t.printStackTrace();
             }
         });
+    }
+
+    private void getDemotivationalQuote() {
+        String quote = "ur bad";
+        title.setText(quote);
+
+    }
+
+    private String fixStringResponse(String str) {
+        String holder = "";
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '<' && str.charAt(i + 1) == 'p' && str.charAt(i + 2) == '>') {
+                holder = holder + str.substring(i + 2);
+                i = i + 3;
+                continue;
+            } else if (str.charAt(i) == '<' && str.charAt(i + 1) == '/' && str.charAt(i + 2) == 'p' && str.charAt(i + 3) == '>') {
+                holder = holder + "";
+                break;
+            }
+
+        }
+        return holder;
     }
 }
