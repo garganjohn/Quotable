@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.pursuit.badtranslator.BadTranslator;
 import org.pursuit.quoteme.R;
 import org.pursuit.quoteme.network.MotivationQuoteService;
 import org.pursuit.quoteme.network.MotivationalQuote;
@@ -86,8 +87,7 @@ public class DisplayFragment extends Fragment {
             quote = view.findViewById(R.id.display_frag_quote);
             title = view.findViewById(R.id.display_frag_title);
 
-            title.setText("Demotivational");
-            quote.setText("ur bad");
+            getDemotivationalQuote();
 
         }
         quote = view.findViewById(R.id.display_frag_quote);
@@ -104,8 +104,10 @@ public class DisplayFragment extends Fragment {
             public void onResponse(Call<List<MotivationalQuote>> call, Response<List<MotivationalQuote>> response) {
                 quoteAPI[0] = response.body().get(0).getContent();
                 title.setText("Motivational");
-                author.setText(response.body().get(0).getTitle());
-                quote.setText(fixStringResponse(quoteAPI[0]));
+                String titleResponse = response.body().get(0).getTitle();
+                String fixedStringResponse = fixStringResponse(quoteAPI[0]);
+                author.setText(titleResponse);
+                quote.setText(fixedStringResponse);
             }
 
             @Override
@@ -139,21 +141,20 @@ public class DisplayFragment extends Fragment {
     }
 
     private void getDemotivationalQuote() {
-        String quote = "ur bad";
-        title.setText(quote);
+        BadTranslator badTranslator = new BadTranslator();
+        String demotivate = badTranslator.demotivateMe();
+        title.setText("Demotivational");
+        quote.setText(demotivate);
 
     }
 
     private String fixStringResponse(String str) {
-        String holder = "";
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == '<' && str.charAt(i + 1) == 'p' && str.charAt(i + 2) == '>') {
-                holder = holder + str.substring(i + 3);
-            }else if(str.charAt(i) == '&' && str.charAt(i + 1) == '#' && str.charAt(i + 2) == '8'
-                    && str.charAt(i + 3) == '2' && str.charAt(i + 4) == '1' && str.charAt(i + 5) == '7'){
-                holder = holder + str.substring(i + 6);
-            }
-        }
-        return holder.substring(0, holder.length() - 4);
+        return str.replaceAll("<p>","")
+                .replaceAll("</p>","")
+                .replaceAll("&#8217;","'")
+                .replaceAll("<br />", "")
+                .replaceAll("<strong>","")
+                .replaceAll("<strong>","");
     }
+
 }
