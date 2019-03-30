@@ -62,6 +62,7 @@ public class MainActivity extends FragmentActivity implements FragmentListener {
     }
 
     public void closeFragment(Fragment fragment) {
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .remove(fragment)

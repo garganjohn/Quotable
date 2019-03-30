@@ -33,6 +33,7 @@ public class DisplayFragment extends Fragment {
     public static final String TAG = "Display Fragment";
     public static final String NAME_KEY = "display name";
     private String name;
+    private String quote;
     private TextView nameTV;
 
     public static DisplayFragment getInstance(String name) {
@@ -55,6 +56,9 @@ public class DisplayFragment extends Fragment {
                 case "Motivational Quotes":
                     getMotivationalQuote();
                     break;
+//                case "Demotivational Quotes":
+//                    getDemotivationalQuote();
+//                    break;
                 case "Kanye Quotes":
                     getKanyeQuote();
                     break;
@@ -73,9 +77,12 @@ public class DisplayFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (getArguments() != null && getArguments().getString(NAME_KEY).equals("Demotivational Quotes")) {
+            nameTV = view.findViewById(R.id.display_frag_name);
+            nameTV.setText("ur bad");
+
+        }
         nameTV = view.findViewById(R.id.display_frag_name);
-
-
     }
 
     private void getMotivationalQuote() {
@@ -114,5 +121,11 @@ public class DisplayFragment extends Fragment {
                 t.printStackTrace();
             }
         });
+    }
+
+    private void getDemotivationalQuote() {
+        String quote = "ur bad";
+        nameTV.setText(quote);
+
     }
 }
