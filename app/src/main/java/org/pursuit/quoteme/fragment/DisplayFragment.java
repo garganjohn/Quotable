@@ -117,6 +117,7 @@ public class DisplayFragment extends Fragment {
 
 
     private void getKanyeQuote() {
+        final String quotation = "\"";
         Retrofit retrofit = YeSingleton.getInstance();
         final String[] quoteAPI = {""};
         Call<Ye> call = retrofit.create(YeService.class).getYeAPI();
@@ -126,7 +127,8 @@ public class DisplayFragment extends Fragment {
             public void onResponse(Call<Ye> call, Response<Ye> response) {
                 quoteAPI[0] = response.body().getQuote();
                 title.setText("What would Kanye say:");
-                quote.setText(quoteAPI[0]);
+                author.setText("Kanye");
+                quote.setText(quotation + quoteAPI[0] + quotation);
             }
 
             @Override
