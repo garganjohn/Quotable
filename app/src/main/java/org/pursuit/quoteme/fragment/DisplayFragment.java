@@ -85,6 +85,7 @@ public class DisplayFragment extends Fragment {
             quote.setText("ur bad");
 
         }
+        quote = view.findViewById(R.id.display_frag_quote);
         title = view.findViewById(R.id.display_frag_title);
     }
 
@@ -96,7 +97,8 @@ public class DisplayFragment extends Fragment {
             @Override
             public void onResponse(Call<List<MotivationalQuote>> call, Response<List<MotivationalQuote>> response) {
                 quoteAPI[0] = response.body().get(0).getContent();
-                title.setText(quoteAPI[0]);
+                title.setText("Motivational");
+                quote.setText(quoteAPI[0]);
             }
 
             @Override
@@ -116,7 +118,8 @@ public class DisplayFragment extends Fragment {
             @Override
             public void onResponse(Call<Ye> call, Response<Ye> response) {
                 quoteAPI[0] = response.body().getQuote();
-                title.setText(quoteAPI[0]);
+                title.setText("What would Kanye say:");
+                quote.setText(quoteAPI[0]);
             }
 
             @Override
@@ -130,5 +133,21 @@ public class DisplayFragment extends Fragment {
         String quote = "ur bad";
         title.setText(quote);
 
+    }
+
+    private String fixStringResponse(String str){
+        String holder = "";
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '<' && str.charAt(i+1) == 'p' && str.charAt(i+2) == '>'){
+                holder = holder + str.substring(i+2);
+                i = i+3;
+                continue;
+            }else if(str.charAt(i) == '<' && str.charAt(i+1) == '/' && str.charAt(i+2) == 'p' && str.charAt(i + 3) == '>'){
+                holder = holder + "";
+                break;
+            }
+
+        }
+        return holder;
     }
 }
