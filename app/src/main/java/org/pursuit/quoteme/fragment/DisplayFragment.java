@@ -20,6 +20,7 @@ import org.pursuit.quoteme.network.MotivationalQuoteSingleton;
 import org.pursuit.quoteme.network.Ye;
 import org.pursuit.quoteme.network.YeService;
 import org.pursuit.quoteme.network.YeSingleton;
+import org.pursuit.quoteme.util.HTMLSymbols;
 
 import java.util.List;
 
@@ -148,13 +149,19 @@ public class DisplayFragment extends Fragment {
 
     }
 
+    //TODO fix double quotes
     private String fixStringResponse(String str) {
-        return str.replaceAll("<p>","")
-                .replaceAll("</p>","")
-                .replaceAll("&#8217;","'")
-                .replaceAll("<br />", "")
-                .replaceAll("<strong>","")
-                .replaceAll("<strong>","");
+        return str.replaceAll(HTMLSymbols.PARAGRAPH_OPEN, "")
+                .replaceAll(HTMLSymbols.PARAGRAPH_CLOSE, "")
+                .replaceAll(HTMLSymbols.APOSTRAPHE, "\'")
+                .replaceAll(HTMLSymbols.BREAK, "")
+                .replaceAll(HTMLSymbols.STRONG, "")
+                .replaceAll(HTMLSymbols.EM_OPEN, "")
+                .replaceAll(HTMLSymbols.EM_CLOSE, "")
+                .replaceAll(HTMLSymbols.LEFT_SINGLE_QUOTE, "\'")
+                .replaceAll(HTMLSymbols.RIGHT_SINGLE_QUOTE, "\'")
+                .replaceAll(HTMLSymbols.LEFT_DOUBLE_QUOTE, "\"")
+                .replaceAll(HTMLSymbols.RIGHT_DOUBLE_QUOTE, "\"");
     }
 
 }
