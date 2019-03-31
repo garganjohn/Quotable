@@ -8,7 +8,7 @@ import android.util.DisplayMetrics;
 
 import org.pursuit.quoteme.fragment.DisplayFragment;
 import org.pursuit.quoteme.fragment.FragmentListener;
-import org.pursuit.quoteme.fragment.SplashFrag;
+import org.pursuit.quoteme.splashscreen.SplashFrag;
 import org.pursuit.quoteme.fragment.ViewPagerFragment;
 import org.pursuit.quoteme.viewpager.controller.ViewPagerAdapter;
 
