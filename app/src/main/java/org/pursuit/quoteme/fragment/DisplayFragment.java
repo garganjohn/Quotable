@@ -1,6 +1,7 @@
 package org.pursuit.quoteme.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.pursuit.badtranslator.BadTranslator;
@@ -37,10 +39,12 @@ public class DisplayFragment extends Fragment {
     public static final String NAME_KEY = "display name";
     private String name;
 
-    private ConstraintLayout display_frag_container;
+    private ImageButton sendEmail;
     private TextView author;
     private TextView quote;
     private TextView title;
+
+    private String quoteText;
 
     public static DisplayFragment getInstance(String name) {
         Bundle bundle = new Bundle();
@@ -62,9 +66,6 @@ public class DisplayFragment extends Fragment {
                 case "Motivational Quotes":
                     getMotivationalQuote();
                     break;
-//                case "Demotivational Quotes":
-//                    getDemotivationalQuote();
-//                    break;
                 case "Kanye Quotes":
                     getKanyeQuote();
                     break;
@@ -74,8 +75,7 @@ public class DisplayFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_display, container, false);
     }
@@ -84,16 +84,21 @@ public class DisplayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (getArguments() != null && getArguments().getString(NAME_KEY).equals("Demotivational Quotes")) {
-            quote = view.findViewById(R.id.display_frag_quote);
-            title = view.findViewById(R.id.display_frag_title);
+        ifDemotivationalQuote(view);
 
-            getDemotivationalQuote();
+        sendEmail = view.findViewById(R.id.display_frag_email);
+        sendEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/html");
+                intent.putExtra(Intent.EXTRA_EMAIL, "emailaddress@emailaddress.com");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+                intent.putExtra(Intent.EXTRA_TEXT, quoteText);
 
-        }
-        quote = view.findViewById(R.id.display_frag_quote);
-        title = view.findViewById(R.id.display_frag_title);
-        author = view.findViewById(R.id.display_frag_author);
+                startActivity(Intent.createChooser(intent, "Send Email"));
+            }
+        });
     }
 
     private void getMotivationalQuote() {
@@ -107,6 +112,7 @@ public class DisplayFragment extends Fragment {
                 title.setText("Motivational");
                 String titleResponse = response.body().get(0).getTitle();
                 String fixedStringResponse = fixStringResponse(quoteAPI[0]);
+                quoteText = fixedStringResponse;
                 author.setText(titleResponse);
                 quote.setText(fixedStringResponse);
             }
@@ -131,6 +137,7 @@ public class DisplayFragment extends Fragment {
                 quoteAPI[0] = response.body().getQuote();
                 title.setText("What would Kanye say:");
                 author.setText("Kanye");
+                quoteText = quotation + quoteAPI[0] + quotation;
                 quote.setText(quotation + quoteAPI[0] + quotation);
             }
 
@@ -141,15 +148,8 @@ public class DisplayFragment extends Fragment {
         });
     }
 
-    private void getDemotivationalQuote() {
-        BadTranslator badTranslator = new BadTranslator();
-        String demotivate = badTranslator.demotivateMe();
-        title.setText("Demotivational");
-        quote.setText(demotivate);
-
-    }
-
     //TODO fix double quotes
+
     private String fixStringResponse(String str) {
         return str.replaceAll(HTMLSymbols.PARAGRAPH_OPEN, "")
                 .replaceAll(HTMLSymbols.PARAGRAPH_CLOSE, "")
@@ -164,4 +164,24 @@ public class DisplayFragment extends Fragment {
                 .replaceAll(HTMLSymbols.RIGHT_DOUBLE_QUOTE, "\"");
     }
 
+    public void ifDemotivationalQuote(View view) {
+        if (getArguments() != null && getArguments().getString(NAME_KEY).equals("Demotivational Quotes")) {
+            quote = view.findViewById(R.id.display_frag_quote);
+            title = view.findViewById(R.id.display_frag_title);
+
+            getDemotivationalQuote();
+        }
+        quote = view.findViewById(R.id.display_frag_quote);
+        title = view.findViewById(R.id.display_frag_title);
+        author = view.findViewById(R.id.display_frag_author);
+    }
+
+    private void getDemotivationalQuote() {
+        BadTranslator badTranslator = new BadTranslator();
+        String demotivate = badTranslator.demotivateMe();
+        quoteText = demotivate;
+        title.setText("Demotivational");
+        quote.setText(demotivate);
+
+    }
 }
