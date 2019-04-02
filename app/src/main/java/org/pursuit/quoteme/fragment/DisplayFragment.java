@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +22,6 @@ import org.pursuit.quoteme.network.MotivationalQuoteSingleton;
 import org.pursuit.quoteme.network.Ye;
 import org.pursuit.quoteme.network.YeService;
 import org.pursuit.quoteme.network.YeSingleton;
-import org.pursuit.quoteme.util.HTMLSymbols;
 
 import java.util.List;
 
@@ -37,8 +36,8 @@ import retrofit2.Retrofit;
 public class DisplayFragment extends Fragment {
     public static final String TAG = "Display Fragment";
     public static final String NAME_KEY = "display name";
-    private String name;
 
+    private String name;
     private ImageButton sendEmail;
     private TextView author;
     private TextView quote;
@@ -54,8 +53,6 @@ public class DisplayFragment extends Fragment {
         return displayFragment;
     }
 
-    public DisplayFragment() {
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,7 +91,7 @@ public class DisplayFragment extends Fragment {
                 intent.setType("text/html");
                 intent.putExtra(Intent.EXTRA_EMAIL, "emailaddress@emailaddress.com");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
-                intent.putExtra(Intent.EXTRA_TEXT, quoteText);
+                intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(quoteText));
 
                 startActivity(Intent.createChooser(intent, "Send Email"));
             }
@@ -109,12 +106,12 @@ public class DisplayFragment extends Fragment {
             @Override
             public void onResponse(Call<List<MotivationalQuote>> call, Response<List<MotivationalQuote>> response) {
                 quoteAPI[0] = response.body().get(0).getContent();
-                title.setText("Motivational");
                 String titleResponse = response.body().get(0).getTitle();
-                String fixedStringResponse = fixStringResponse(quoteAPI[0]);
-                quoteText = fixedStringResponse;
+                quoteText = quoteAPI[0];
+
+                title.setText("Motivational");
                 author.setText(titleResponse);
-                quote.setText(fixedStringResponse);
+                quote.setText(Html.fromHtml(quoteAPI[0]));
             }
 
             @Override
@@ -148,22 +145,7 @@ public class DisplayFragment extends Fragment {
         });
     }
 
-    //TODO fix double quotes
-
-    private String fixStringResponse(String str) {
-        return str.replaceAll(HTMLSymbols.PARAGRAPH_OPEN, "")
-                .replaceAll(HTMLSymbols.PARAGRAPH_CLOSE, "")
-                .replaceAll(HTMLSymbols.APOSTRAPHE, "\'")
-                .replaceAll(HTMLSymbols.BREAK, "")
-                .replaceAll(HTMLSymbols.STRONG, "")
-                .replaceAll(HTMLSymbols.EM_OPEN, "")
-                .replaceAll(HTMLSymbols.EM_CLOSE, "")
-                .replaceAll(HTMLSymbols.LEFT_SINGLE_QUOTE, "\'")
-                .replaceAll(HTMLSymbols.RIGHT_SINGLE_QUOTE, "\'")
-                .replaceAll(HTMLSymbols.LEFT_DOUBLE_QUOTE, "\"")
-                .replaceAll(HTMLSymbols.RIGHT_DOUBLE_QUOTE, "\"");
-    }
-
+    //TODO QUOTE RUSI SO HE DOESN'T CRY
     public void ifDemotivationalQuote(View view) {
         if (getArguments() != null && getArguments().getString(NAME_KEY).equals("Demotivational Quotes")) {
             quote = view.findViewById(R.id.display_frag_quote);
