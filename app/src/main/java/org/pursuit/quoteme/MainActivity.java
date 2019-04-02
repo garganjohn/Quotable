@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import org.pursuit.quoteme.fragment.DisplayFragment;
 import org.pursuit.quoteme.fragment.FragmentListener;
@@ -37,6 +39,25 @@ public class MainActivity extends FragmentActivity implements FragmentListener {
                 .replace(R.id.main_act_container, displayFragment)
                 .addToBackStack("Display Fragment")
                 .commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.links_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.github_link:
+                //code
+                break;
+            case R.id.linkedin_link:
+                //code
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public List<Fragment> getFragmentsForViewPager() {
