@@ -20,8 +20,6 @@ import org.pursuit.quoteme.R;
 public class ViewPagerFragment extends Fragment {
     public static final String NAME_KEY = "name";
     private String name;
-    private TextView nameTV;
-    private ConstraintLayout viewPagerContainer;
     private FragmentListener fragmentListener;
 
     public static ViewPagerFragment getInstance(String name) {
@@ -32,23 +30,14 @@ public class ViewPagerFragment extends Fragment {
         return viewPagerFragment;
     }
 
-    public ViewPagerFragment() {
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof FragmentListener) {
             fragmentListener = (FragmentListener) context;
-        }else{
+        } else {
             throw new RuntimeException(context.toString() + " implement your listener");
         }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        fragmentListener = null;
     }
 
     @Override
@@ -69,8 +58,8 @@ public class ViewPagerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        nameTV = view.findViewById(R.id.fragment_name);
-        viewPagerContainer = view.findViewById(R.id.viewpager_fragment_container);
+        TextView nameTV = view.findViewById(R.id.fragment_name);
+        ConstraintLayout viewPagerContainer = view.findViewById(R.id.viewpager_fragment_container);
 
         nameTV.setText(name);
         viewPagerContainer.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +68,12 @@ public class ViewPagerFragment extends Fragment {
                 fragmentListener.toDisplayFragment(name);
             }
         });
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        fragmentListener = null;
     }
 }
 
