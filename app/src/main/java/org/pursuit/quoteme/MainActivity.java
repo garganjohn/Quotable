@@ -1,5 +1,7 @@
 package org.pursuit.quoteme;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -60,10 +62,16 @@ public class MainActivity extends AppCompatActivity implements FragmentListener 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.github_link:
-                //code
+                String github = "https://github.com/garganjohn";
+                Intent githubIntent = new Intent(Intent.ACTION_VIEW);
+                githubIntent.setData(Uri.parse(github));
+                startActivity(githubIntent);
                 break;
             case R.id.linkedin_link:
-                //code
+                String linkedin = "https://www.linkedin.com/in/john-gargan-97532a59/";
+                Intent linkedinIntent = new Intent(Intent.ACTION_VIEW);
+                linkedinIntent.setData(Uri.parse(linkedin));
+                startActivity(linkedinIntent);
                 break;
         }
         return super.onOptionsItemSelected(item);
