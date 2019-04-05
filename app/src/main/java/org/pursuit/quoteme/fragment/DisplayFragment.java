@@ -110,7 +110,7 @@ public class DisplayFragment extends Fragment {
                 quoteText = quoteAPI[0];
 
                 title.setText("Motivational");
-                author.setText(titleResponse);
+                author.setText(Html.fromHtml(titleResponse));
                 quote.setText(Html.fromHtml(quoteAPI[0]));
             }
 
