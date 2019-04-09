@@ -20,15 +20,8 @@ import org.pursuit.quoteme.R;
 public class ViewPagerFragment extends Fragment {
     public static final String NAME_KEY = "name";
     private String name;
-    private FragmentListener fragmentListener;
 
-    public static ViewPagerFragment getInstance(String name) {
-        Bundle bundle = new Bundle();
-        bundle.putString(NAME_KEY, name);
-        ViewPagerFragment viewPagerFragment = new ViewPagerFragment();
-        viewPagerFragment.setArguments(bundle);
-        return viewPagerFragment;
-    }
+    private FragmentListener fragmentListener;
 
     @Override
     public void onAttach(Context context) {
@@ -51,7 +44,6 @@ public class ViewPagerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_view_pager, container, false);
     }
 
@@ -74,6 +66,14 @@ public class ViewPagerFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         fragmentListener = null;
+    }
+
+    public static ViewPagerFragment getInstance(String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString(NAME_KEY, name);
+        ViewPagerFragment viewPagerFragment = new ViewPagerFragment();
+        viewPagerFragment.setArguments(bundle);
+        return viewPagerFragment;
     }
 }
 

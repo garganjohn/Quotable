@@ -36,22 +36,14 @@ import retrofit2.Retrofit;
 public class DisplayFragment extends Fragment {
     public static final String TAG = "Display Fragment";
     public static final String NAME_KEY = "display name";
-
+    private String quoteText;
     private String name;
+
     private ImageButton sendEmail;
     private TextView author;
     private TextView quote;
     private TextView title;
 
-    private String quoteText;
-
-    public static DisplayFragment getInstance(String name) {
-        Bundle bundle = new Bundle();
-        bundle.putString(NAME_KEY, name);
-        DisplayFragment displayFragment = new DisplayFragment();
-        displayFragment.setArguments(bundle);
-        return displayFragment;
-    }
 
 
     @Override
@@ -72,7 +64,6 @@ public class DisplayFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_display, container, false);
     }
 
@@ -142,6 +133,14 @@ public class DisplayFragment extends Fragment {
                 t.printStackTrace();
             }
         });
+    }
+
+    public static DisplayFragment getInstance(String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString(NAME_KEY, name);
+        DisplayFragment displayFragment = new DisplayFragment();
+        displayFragment.setArguments(bundle);
+        return displayFragment;
     }
 
     //TODO QUOTE RUSI SO HE DOESN'T CRY
