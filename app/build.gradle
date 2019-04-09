@@ -21,6 +21,8 @@ android {
 dependencies {
     implementation 'com.github.garganjohn:Bad-Translations:1.4.1'
 
+    implementation 'com.rishabhharit.roundedimageview:RoundedImageView:0.7.1'
+
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
