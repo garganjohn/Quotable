@@ -5,10 +5,10 @@
     android:id="@+id/display_frag_containter"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
     android:background="@drawable/view_pager_background"
     android:clickable="true"
-    tools:context=".fragment.DisplayFragment">
+    tools:context=".fragment.DisplayFragment"
+    android:elevation="16dp">
 
     <TextView
         android:id="@+id/display_frag_title"

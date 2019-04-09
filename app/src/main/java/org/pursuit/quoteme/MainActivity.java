@@ -29,19 +29,20 @@ public class MainActivity extends AppCompatActivity implements FragmentListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        splashScreen();
-
 
         //TODO fix no appCompat since main activity is extending a fragment for the viewpager
         toolbar = findViewById(R.id.app_toolbar);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.links_menu);
 
+        splashScreen();
+
         ViewPager viewPager = findViewById(R.id.main_act_viewpager);
         viewPager.setPageMargin(addPadding(10));
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), getFragmentsForViewPager()));
     }
 
+    //TODO either make display fragment smaller or find a way to make toolbar.hide() work
     @Override
     public void toDisplayFragment(String str) {
         DisplayFragment displayFragment = DisplayFragment.getInstance(str);
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements FragmentListener 
                 .replace(R.id.main_act_container, displayFragment)
                 .addToBackStack("Display Fragment")
                 .commit();
+        //getSupportActionBar().hide();
+       // getSupportActionBar().show();
     }
 
     @Override
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener 
     }
 
     public void splashScreen() {
+        getSupportActionBar().hide();
         SplashFrag splashFrag = new SplashFrag();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -104,5 +108,6 @@ public class MainActivity extends AppCompatActivity implements FragmentListener 
                 .beginTransaction()
                 .remove(fragment)
                 .commit();
+        getSupportActionBar().show();
     }
 }
