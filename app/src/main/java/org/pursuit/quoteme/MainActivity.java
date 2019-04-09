@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements FragmentListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TODO fix no appCompat since main activity is extending a fragment for the viewpager
         toolbar = findViewById(R.id.app_toolbar);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.links_menu);
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener 
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), getFragmentsForViewPager()));
     }
 
-    //TODO either make display fragment smaller or find a way to make toolbar.hide() work
+
     @Override
     public void toDisplayFragment(String str) {
         DisplayFragment displayFragment = DisplayFragment.getInstance(str);
@@ -51,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements FragmentListener 
                 .replace(R.id.main_act_container, displayFragment)
                 .addToBackStack("Display Fragment")
                 .commit();
-        //getSupportActionBar().hide();
-       // getSupportActionBar().show();
     }
 
     @Override
@@ -65,13 +62,13 @@ public class MainActivity extends AppCompatActivity implements FragmentListener 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.github_link:
-                String github = "https://github.com/garganjohn";
+                String github = getString(R.string.github_link);
                 Intent githubIntent = new Intent(Intent.ACTION_VIEW);
                 githubIntent.setData(Uri.parse(github));
                 startActivity(githubIntent);
                 break;
             case R.id.linkedin_link:
-                String linkedin = "https://www.linkedin.com/in/john-gargan-97532a59/";
+                String linkedin = getString(R.string.linkedin_link);
                 Intent linkedinIntent = new Intent(Intent.ACTION_VIEW);
                 linkedinIntent.setData(Uri.parse(linkedin));
                 startActivity(linkedinIntent);
@@ -80,20 +77,20 @@ public class MainActivity extends AppCompatActivity implements FragmentListener 
         return super.onOptionsItemSelected(item);
     }
 
-    public List<Fragment> getFragmentsForViewPager() {
+    private List<Fragment> getFragmentsForViewPager() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(ViewPagerFragment.getInstance("Motivational Quotes"));
-        fragments.add(ViewPagerFragment.getInstance("Demotivational Quotes"));
-        fragments.add(ViewPagerFragment.getInstance("Kanye Quotes"));
+        fragments.add(ViewPagerFragment.getInstance(getString(R.string.motivational_quotes)));
+        fragments.add(ViewPagerFragment.getInstance(getString(R.string.demotivational_quotes)));
+        fragments.add(ViewPagerFragment.getInstance(getString(R.string.kanye_quotes)));
         return fragments;
     }
 
-    public int addPadding(int dp) {
+    private int addPadding(int dp) {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
-    public void splashScreen() {
+    private void splashScreen() {
         getSupportActionBar().hide();
         SplashFrag splashFrag = new SplashFrag();
         getSupportFragmentManager()

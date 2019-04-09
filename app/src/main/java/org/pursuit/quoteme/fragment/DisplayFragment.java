@@ -89,7 +89,7 @@ public class DisplayFragment extends Fragment {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/html");
                 intent.putExtra(Intent.EXTRA_EMAIL, "emailaddress@emailaddress.com");
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "A quote for you");
                 intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(quoteText));
 
                 startActivity(Intent.createChooser(intent, "Send Email"));
@@ -108,7 +108,7 @@ public class DisplayFragment extends Fragment {
                 String titleResponse = response.body().get(0).getTitle();
                 quoteText = quoteAPI[0];
 
-                title.setText("Motivational");
+                title.setText(getString(R.string.motivation_string_literal));
                 author.setText(Html.fromHtml(titleResponse));
                 quote.setText(Html.fromHtml(quoteAPI[0]));
             }
@@ -131,10 +131,10 @@ public class DisplayFragment extends Fragment {
             @Override
             public void onResponse(Call<Ye> call, Response<Ye> response) {
                 quoteAPI[0] = response.body().getQuote();
-                title.setText("What would Kanye say:");
-                author.setText("Kanye");
+                title.setText(getString(R.string.what_would_kanye_say));
+                author.setText(getString(R.string.kanye));
                 quoteText = quotation + quoteAPI[0] + quotation;
-                quote.setText(quotation + quoteAPI[0] + quotation);
+                quote.setText(quoteText);
             }
 
             @Override
@@ -161,7 +161,7 @@ public class DisplayFragment extends Fragment {
         BadTranslator badTranslator = new BadTranslator();
         String demotivate = badTranslator.demotivateMe();
         quoteText = demotivate;
-        title.setText("Demotivational");
+        title.setText(getString(R.string.demotivational_string_literal));
         quote.setText(demotivate);
 
     }
