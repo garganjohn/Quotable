@@ -53,7 +53,7 @@ public class DisplayFragment extends Fragment {
                 case "Motivational Quotes":
                     getMotivationalQuote();
                     break;
-                case "Kanye Quotes":
+                case "Kanye":
                     getKanyeQuote();
                     break;
             }
