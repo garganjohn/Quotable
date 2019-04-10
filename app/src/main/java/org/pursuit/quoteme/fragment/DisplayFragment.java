@@ -87,50 +87,50 @@ public class DisplayFragment extends Fragment {
     }
 
     private void getMotivationalQuote() {
-        Retrofit retrofit = MotivationalQuoteSingleton.getInstance();
-        final String[] quoteAPI = {""};
-        Call<List<MotivationalQuote>> call = retrofit.create(MotivationQuoteService.class).getMotivationAPI();
-        call.enqueue(new Callback<List<MotivationalQuote>>() {
-            @Override
-            public void onResponse(Call<List<MotivationalQuote>> call, Response<List<MotivationalQuote>> response) {
-                quoteAPI[0] = response.body().get(0).getContent();
-                String titleResponse = response.body().get(0).getTitle();
-                quoteText = quoteAPI[0];
-
-                title.setText(getString(R.string.motivation_string_literal));
-                author.setText(Html.fromHtml(titleResponse));
-                quote.setText(Html.fromHtml(quoteAPI[0]));
-            }
-
-            @Override
-            public void onFailure(Call<List<MotivationalQuote>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+//        Retrofit retrofit = MotivationalQuoteSingleton.getInstance();
+//        final String[] quoteAPI = {""};
+//        Call<List<MotivationalQuote>> call = retrofit.create(MotivationQuoteService.class).getMotivationAPI();
+//        call.enqueue(new Callback<List<MotivationalQuote>>() {
+//            @Override
+//            public void onResponse(Call<List<MotivationalQuote>> call, Response<List<MotivationalQuote>> response) {
+//                quoteAPI[0] = response.body().get(0).getContent();
+//                String titleResponse = response.body().get(0).getTitle();
+//                quoteText = quoteAPI[0];
+//
+//                title.setText(getString(R.string.motivation_string_literal));
+//                author.setText(Html.fromHtml(titleResponse));
+//                quote.setText(Html.fromHtml(quoteAPI[0]));
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<MotivationalQuote>> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
     }
 
 
     private void getKanyeQuote() {
-        final String quotation = "\"";
-        Retrofit retrofit = YeSingleton.getInstance();
-        final String[] quoteAPI = {""};
-        Call<Ye> call = retrofit.create(YeService.class).getYeAPI();
-        Log.d(TAG, "getKanyeQuote: ;" + call.request());
-        call.enqueue(new Callback<Ye>() {
-            @Override
-            public void onResponse(Call<Ye> call, Response<Ye> response) {
-                quoteAPI[0] = response.body().getQuote();
-                title.setText(getString(R.string.what_would_kanye_say));
-                author.setText(getString(R.string.kanye));
-                quoteText = quotation + quoteAPI[0] + quotation;
-                quote.setText(quoteText);
-            }
-
-            @Override
-            public void onFailure(Call<Ye> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+//        final String quotation = "\"";
+//        Retrofit retrofit = YeSingleton.getInstance();
+//        final String[] quoteAPI = {""};
+//        Call<Ye> call = retrofit.create(YeService.class).getYeAPI();
+//        Log.d(TAG, "getKanyeQuote: ;" + call.request());
+//        call.enqueue(new Callback<Ye>() {
+//            @Override
+//            public void onResponse(Call<Ye> call, Response<Ye> response) {
+//                quoteAPI[0] = response.body().getQuote();
+//                title.setText(getString(R.string.what_would_kanye_say));
+//                author.setText(getString(R.string.kanye));
+//                quoteText = quotation + quoteAPI[0] + quotation;
+//                quote.setText(quoteText);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Ye> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
     }
 
     public static DisplayFragment getInstance(String name) {

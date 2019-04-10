@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import org.pursuit.quoteme.R;
 import org.pursuit.quoteme.fragment.FragmentListener;
+import org.pursuit.quoteme.network.QuoteRepository;
 
 public class SplashFrag extends Fragment {
     private FragmentListener fragmentListener;
@@ -27,6 +28,7 @@ public class SplashFrag extends Fragment {
         } else {
             throw new RuntimeException(context.toString() + "Implement your interface");
         }
+        QuoteRepository.populateASync();
     }
 
     @Override
