@@ -10,5 +10,5 @@ public abstract class QuoteDatabase extends RoomDatabase {
     private static QuoteDatabase instance;
 
     //TODO get dao up running
-    public abstract QuoteDao quoteDao;
+    public QuoteDao quoteDao;
 }

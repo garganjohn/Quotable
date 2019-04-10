@@ -14,6 +14,17 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class QuoteRepository {
+    private static String kanyeQuote;
+    private static String motivateQuote;
+
+    public static String getKanyeQuote() {
+        return kanyeQuote;
+    }
+
+    public static String getMotivateQuote() {
+        return motivateQuote;
+    }
+
     public static void populateASync() {
         GetQuotesAsync async = new GetQuotesAsync();
         async.execute();
@@ -64,8 +75,8 @@ public class QuoteRepository {
 
         @Override
         protected Void doInBackground(final Void... voids) {
-            kanyeQuote();
-            motivateQuote();
+            kanyeQuote = kanyeQuote();
+            motivateQuote = motivateQuote();
             return null;
         }
     }

@@ -28,12 +28,12 @@ public class SplashFrag extends Fragment {
         } else {
             throw new RuntimeException(context.toString() + "Implement your interface");
         }
-        QuoteRepository.populateASync();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        QuoteRepository.populateASync();
     }
 
 

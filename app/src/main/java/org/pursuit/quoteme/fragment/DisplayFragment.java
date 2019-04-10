@@ -19,6 +19,7 @@ import org.pursuit.quoteme.R;
 import org.pursuit.quoteme.network.MotivationQuoteService;
 import org.pursuit.quoteme.network.MotivationalQuote;
 import org.pursuit.quoteme.network.MotivationalQuoteSingleton;
+import org.pursuit.quoteme.network.QuoteRepository;
 import org.pursuit.quoteme.network.Ye;
 import org.pursuit.quoteme.network.YeService;
 import org.pursuit.quoteme.network.YeSingleton;
@@ -97,9 +98,9 @@ public class DisplayFragment extends Fragment {
 //                String titleResponse = response.body().get(0).getTitle();
 //                quoteText = quoteAPI[0];
 //
-//                title.setText(getString(R.string.motivation_string_literal));
+                title.setText(getString(R.string.motivation_string_literal));
 //                author.setText(Html.fromHtml(titleResponse));
-//                quote.setText(Html.fromHtml(quoteAPI[0]));
+                quote.setText(QuoteRepository.getMotivateQuote());
 //            }
 //
 //            @Override
@@ -120,10 +121,10 @@ public class DisplayFragment extends Fragment {
 //            @Override
 //            public void onResponse(Call<Ye> call, Response<Ye> response) {
 //                quoteAPI[0] = response.body().getQuote();
-//                title.setText(getString(R.string.what_would_kanye_say));
+                title.setText(getString(R.string.what_would_kanye_say));
 //                author.setText(getString(R.string.kanye));
 //                quoteText = quotation + quoteAPI[0] + quotation;
-//                quote.setText(quoteText);
+                quote.setText(QuoteRepository.getKanyeQuote());
 //            }
 //
 //            @Override
