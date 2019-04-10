@@ -36,29 +36,19 @@ import retrofit2.Retrofit;
 public class DisplayFragment extends Fragment {
     public static final String TAG = "Display Fragment";
     public static final String NAME_KEY = "display name";
+    private String quoteText;
 
-    private String name;
-    private ImageButton sendEmail;
     private TextView author;
     private TextView quote;
     private TextView title;
 
-    private String quoteText;
-
-    public static DisplayFragment getInstance(String name) {
-        Bundle bundle = new Bundle();
-        bundle.putString(NAME_KEY, name);
-        DisplayFragment displayFragment = new DisplayFragment();
-        displayFragment.setArguments(bundle);
-        return displayFragment;
-    }
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            name = getArguments().getString(NAME_KEY);
+            String name = getArguments().getString(NAME_KEY);
             switch (name) {
                 case "Motivational Quotes":
                     getMotivationalQuote();
@@ -72,7 +62,6 @@ public class DisplayFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_display, container, false);
     }
 
@@ -82,7 +71,7 @@ public class DisplayFragment extends Fragment {
 
         ifDemotivationalQuote(view);
 
-        sendEmail = view.findViewById(R.id.display_frag_email);
+        ImageButton sendEmail = view.findViewById(R.id.display_frag_email);
         sendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +133,14 @@ public class DisplayFragment extends Fragment {
         });
     }
 
-    //TODO QUOTE RUSI SO HE DOESN'T CRY
+    public static DisplayFragment getInstance(String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString(NAME_KEY, name);
+        DisplayFragment displayFragment = new DisplayFragment();
+        displayFragment.setArguments(bundle);
+        return displayFragment;
+    }
+
     public void ifDemotivationalQuote(View view) {
         if (getArguments() != null && getArguments().getString(NAME_KEY).equals("Demotivational Quotes")) {
             quote = view.findViewById(R.id.display_frag_quote);

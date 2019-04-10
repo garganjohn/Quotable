@@ -1,13 +1,8 @@
 package org.pursuit.quoteme.network;
 
 public class Ye {
-    public String quote;
-    public String id;
-
-//    public Ye(String quote, String id) {
-//        this.quote = quote;
-//        this.id = id;
-//    }
+    private String quote;
+    private String id;
 
     public String getQuote() {
         return quote;
