@@ -11,9 +11,9 @@
 
     <ImageView
         android:id="@+id/splash_logo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@mipmap/quotable_icon_circle"
+        android:layout_width="180dp"
+        android:layout_height="1800dp"
+        android:src="@drawable/quotable_splash_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
