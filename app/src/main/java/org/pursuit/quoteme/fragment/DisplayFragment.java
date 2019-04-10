@@ -37,9 +37,7 @@ public class DisplayFragment extends Fragment {
     public static final String TAG = "Display Fragment";
     public static final String NAME_KEY = "display name";
     private String quoteText;
-    private String name;
 
-    private ImageButton sendEmail;
     private TextView author;
     private TextView quote;
     private TextView title;
@@ -50,7 +48,7 @@ public class DisplayFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            name = getArguments().getString(NAME_KEY);
+            String name = getArguments().getString(NAME_KEY);
             switch (name) {
                 case "Motivational Quotes":
                     getMotivationalQuote();
@@ -73,7 +71,7 @@ public class DisplayFragment extends Fragment {
 
         ifDemotivationalQuote(view);
 
-        sendEmail = view.findViewById(R.id.display_frag_email);
+        ImageButton sendEmail = view.findViewById(R.id.display_frag_email);
         sendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +141,6 @@ public class DisplayFragment extends Fragment {
         return displayFragment;
     }
 
-    //TODO QUOTE RUSI SO HE DOESN'T CRY
     public void ifDemotivationalQuote(View view) {
         if (getArguments() != null && getArguments().getString(NAME_KEY).equals("Demotivational Quotes")) {
             quote = view.findViewById(R.id.display_frag_quote);
