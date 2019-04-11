@@ -4,9 +4,10 @@ Quotable is a free open-source app to generate quotes to motvate you or make you
 
 ## Screenshots
 
-[Imgur](https://i.imgur.com/hSfTx5f.jpg)
+![Imgur](https://i.imgur.com/hSfTx5f.jpg) 
 
-[Imgur](https://i.imgur.com/fhpxEeu.jpg)
+![Imgur](https://i.imgur.com/fhpxEeu.jpg)
+
 
 [Trello Board](https://trello.com/b/eZfDh2ES/quotable)
 
