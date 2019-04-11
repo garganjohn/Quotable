@@ -3,8 +3,12 @@
 Quotable is a free open-source app to generate quotes to motvate you or make you laugh.
 
 ## Screenshots
+<img src="https://raw.githubusercontent.com/garganjohn/Quotable/master/app/src/main/res/drawable/Screenshot_20190410-191749_Quotable.jpg" width="256" height="512" title="Screenshot1"> <img src="https://raw.githubusercontent.com/garganjohn/Quotable/master/app/src/main/res/drawable/Screenshot_20190410-194623_Quotable.jpg" width="256" height="512" title="Screenshot2">
 
-![](https://github.com/garganjohn/Quotable/blob/master/app/src/main/res/drawable/Screenshot_20190410-191749_Quotable.jpg&s=200)
+
+
+
+
 
 
 [Trello Board](https://trello.com/b/eZfDh2ES/quotable)
