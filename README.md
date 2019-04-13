@@ -1,6 +1,6 @@
 # Quotable
 
-Quotable is a free open-source app to generate quotes to motvate you or make you laugh.
+Quotable is a free open-source app to generate quotes to motivate you or make you laugh.
 
 ## Screenshots
 <img src="https://raw.githubusercontent.com/garganjohn/Quotable/master/app/src/main/res/drawable/screenshot_20190410_191749_quotable.jpg" width="256" height="512" title="Screenshot1"> <img src="https://raw.githubusercontent.com/garganjohn/Quotable/master/app/src/main/res/drawable/screenshot_20190410_194623_quotable.jpg" width="256" height="512" title="Screenshot2">
