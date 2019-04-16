@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import org.pursuit.badtranslator.BadTranslator;
 import org.pursuit.quoteme.R;
+import org.pursuit.quoteme.database.QuoteDatabase;
 import org.pursuit.quoteme.network.MotivationQuoteService;
 import org.pursuit.quoteme.network.MotivationalQuote;
 import org.pursuit.quoteme.network.MotivationalQuoteSingleton;
@@ -98,9 +99,11 @@ public class DisplayFragment extends Fragment {
 //                String titleResponse = response.body().get(0).getTitle();
 //                quoteText = quoteAPI[0];
 //
+        QuoteDatabase db = QuoteDatabase.getInstance(getContext());
+
                 title.setText(getString(R.string.motivation_string_literal));
 //                author.setText(Html.fromHtml(titleResponse));
-                quote.setText(QuoteRepository.getMotivateQuote());
+                quote.setText(db.quoteDao().loadQuoteById(0).motivateDBQuote);
 //            }
 //
 //            @Override
@@ -124,7 +127,7 @@ public class DisplayFragment extends Fragment {
                 title.setText(getString(R.string.what_would_kanye_say));
 //                author.setText(getString(R.string.kanye));
 //                quoteText = quotation + quoteAPI[0] + quotation;
-                quote.setText(QuoteRepository.getKanyeQuote());
+                quote.setText("NULL");
 //            }
 //
 //            @Override

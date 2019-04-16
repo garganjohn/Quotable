@@ -1,5 +1,6 @@
 package org.pursuit.quoteme;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,8 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.pursuit.quoteme.database.DatabaseInitializer;
+import org.pursuit.quoteme.database.QuoteDatabase;
 import org.pursuit.quoteme.fragment.DisplayFragment;
 import org.pursuit.quoteme.fragment.FragmentListener;
 import org.pursuit.quoteme.splashscreen.SplashFrag;
@@ -103,5 +106,11 @@ public class MainActivity extends AppCompatActivity implements FragmentListener 
                 .remove(fragment)
                 .commit();
         getSupportActionBar().show();
+        createDatabase(getApplicationContext());
+    }
+    public void createDatabase(Context context) {
+        // Note: Db references should not be in an activity.
+        QuoteDatabase db = QuoteDatabase.getInstance(context);
+        DatabaseInitializer.populateASync(db);
     }
 }

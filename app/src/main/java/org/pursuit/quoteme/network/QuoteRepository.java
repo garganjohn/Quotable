@@ -17,20 +17,15 @@ public class QuoteRepository {
     private static String kanyeQuote;
     private static String motivateQuote;
 
-    public static String getKanyeQuote() {
-        return kanyeQuote;
-    }
+//    public static String getKanyeQuote() {
+//        return kanyeQuote;
+//    }
+//
+//    public static String getMotivateQuote() {
+//        return motivateQuote;
+//    }
 
-    public static String getMotivateQuote() {
-        return motivateQuote;
-    }
-
-    public static void populateASync() {
-        GetQuotesAsync async = new GetQuotesAsync();
-        async.execute();
-    }
-
-    private static String motivateQuote() {
+    public String motivateQuote() {
         Retrofit retrofit = MotivationalQuoteSingleton.getInstance();
         final String[] quoteAPI = {""};
         Call<List<MotivationalQuote>> call = retrofit.create(MotivationQuoteService.class).getMotivationAPI();
@@ -49,7 +44,7 @@ public class QuoteRepository {
         return quoteAPI[0];
     }
 
-    private static String kanyeQuote() {
+    public String kanyeQuote() {
         final String quotation = "\"";
 
         Retrofit retrofit = YeSingleton.getInstance();
@@ -71,13 +66,4 @@ public class QuoteRepository {
         return quotation + quoteAPI[0] + quotation;
     }
 
-    private static class GetQuotesAsync extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(final Void... voids) {
-            kanyeQuote = kanyeQuote();
-            motivateQuote = motivateQuote();
-            return null;
-        }
-    }
 }
